@@ -1,0 +1,13 @@
+
+matplotlib==3.8.3
+opencv-contrib-python==4.6.0.66
+opencv-python==4.6.0.66
+opencv-python-headless==4.9.0.80
+paddleocr==2.7.0.3
+paddlepaddle==2.6.0
+streamlit==1.31.1
+
+torch==2.2.0
+torchvision==0.17.0
+ultralytics==8.1.17
+
