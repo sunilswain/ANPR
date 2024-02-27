@@ -10,7 +10,7 @@ def getPaddle():
 
 # Function to extract number plate images
 def extractNumberPlates(frame):
-    model = YOLO('best_1.pt')
+    model = YOLO('./best_1.pt')
     result = model.predict(frame)[0]
     numPlates = []
     for object in result.boxes:
