@@ -13,10 +13,9 @@ def main():
     if uploaded_file is not None:
         # Read the image file
         image = Image.open(uploaded_file)
-
         # Convert the image to NumPy array
         image = np.array(image)
-
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         number_plates = extractNumberPlates(image)
         if number_plates:
             for i, plate in enumerate(number_plates):
