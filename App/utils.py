@@ -84,17 +84,17 @@ def recogFunc(img):
     """Predicts the number plate value"""
     paddle = getPaddle()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    _, otsu_thresh = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-    img_binary_lp_er = cv2.erode(otsu_thresh, (3,3))
-    img_binary_lp = cv2.dilate(img_binary_lp_er, (3,3))  
-    result = paddle.ocr(img_binary_lp_er, cls=True)
+    # _, otsu_thresh = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    # img_binary_lp_er = cv2.erode(otsu_thresh, (3,3))
+    # img_binary_lp = cv2.dilate(img_binary_lp_er, (3,3))  
+    result = paddle.ocr(gray, cls=True)
     if result != [[]]:
         plate_val = ""
         for rec in result[0]:
             if len(rec[1][0]) > 3:
                 plate_val += rec[1][0]
 
-    # Fixing some characters in the number plate
-    plate_val = fixNumberPlate(plate_val)
+    # # Fixing some characters in the number plate
+    # plate_val = fixNumberPlate(plate_val)
 
     return plate_val, result
