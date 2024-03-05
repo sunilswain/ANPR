@@ -18,7 +18,7 @@ def getSemanticModel():
     semantic_model = nn.DataParallel(seg_model)
     semantic_model.load_state_dict(
         torch.load(
-            r"best_semantic.pth",
+            "Appv2/best_semantic.pth",
             map_location=torch.device("cpu"),
         )["state_dict"]
     )
