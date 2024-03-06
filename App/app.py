@@ -2,7 +2,8 @@ import streamlit as st
 import cv2
 import numpy as np
 from PIL import Image
-from utils import extractNumberPlates, recogFunc
+from utils import extractNumberPlates, recogFunc, isExists
+
 
 def main():
     st.title("Number Plate Recognition")
@@ -26,6 +27,11 @@ def main():
                     st.header(f"Plate {i+1}")
                     st.image(plate)
                     st.write(f"Plate Number: {plate_val}")
+                    status = isExists(plate_val)
+                    if len(status):
+                        st.write(f"Validated ✅ - {status[0]} owns this Vehicle")
+                    else:
+                        st.write("This vehicle can't be validated.")
         else:
             st.write("No number plates detected! Use another image..")
 

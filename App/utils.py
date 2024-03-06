@@ -4,8 +4,25 @@ from matplotlib import pyplot as plt
 from paddleocr import PaddleOCR
 import numpy as np
 import re
+import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 
+def isExists(plate_val):
+    # Create a connection object.
+    conn = st.connection("gsheets", type=GSheetsConnection)
 
+    df = conn.read(
+        spreadsheet=st.secrets["spreadsheet"],
+    )
+    print(df.columns)
+    plates = list(df['Vehicle_Number'])
+
+    if plate_val in plates:
+        return df.loc[
+            df['Vehicle_Number']=='OD02CF3697'
+        ][['Emp_Id', 'Owner_Name']].values[0]
+
+    return None
 def removeSpecialCharacters(input_string):
     """
     This Function accepts a string and removes any special characters present
@@ -91,7 +108,7 @@ def recogFunc(img):
     result = paddle.ocr(gray, cls=True)
     print(result)
     plate_val = ""
-
+    
     if result != [None]:
         for rec in result[0]:
             if len(rec[1][0]) > 3:
@@ -100,7 +117,10 @@ def recogFunc(img):
     # # Fixing some characters in the number plate
     # plate_val = fixNumberPlate(plate_val)
     if len(plate_val) > 0:
+        if plate_val[0] == '0':
+            plate_val = 'O'+plate_val[1:]
         if plate_val[1] == '0':
             plate_val = plate_val[:1]+'D'+plate_val[2:]
-
+        if plate_val[2] == 'O':
+            plate_val = plate_val[:2]+'0'+plate_val[3:]
     return plate_val, result
