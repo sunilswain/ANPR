@@ -96,5 +96,7 @@ def recogFunc(img):
 
     # # Fixing some characters in the number plate
     # plate_val = fixNumberPlate(plate_val)
+    if plate_val[1] == '0':
+        plate_val = plate_val[:1]+'D'+plate_val[2:]
 
     return plate_val, result
