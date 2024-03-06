@@ -73,7 +73,8 @@ def extractNumberPlates(frame):
         x_min, y_min, x_max, y_max = [round(i) for i in object.xyxy[0].tolist()]
         conf = conf = round(object.conf[0].item(), 2)
         print(x_min, y_min, x_max, y_max)
-        if conf > 0.60:
+        print(conf)
+        if conf > 0.70:
             numPlates.append(
                 frame[y_min: y_max, x_min: x_max]
             )
@@ -88,15 +89,18 @@ def recogFunc(img):
     # img_binary_lp_er = cv2.erode(otsu_thresh, (3,3))
     # img_binary_lp = cv2.dilate(img_binary_lp_er, (3,3))  
     result = paddle.ocr(gray, cls=True)
-    if result != [[]]:
-        plate_val = ""
+    print(result)
+    plate_val = ""
+
+    if result != [None]:
         for rec in result[0]:
             if len(rec[1][0]) > 3:
                 plate_val += rec[1][0]
 
     # # Fixing some characters in the number plate
     # plate_val = fixNumberPlate(plate_val)
-    if plate_val[1] == '0':
-        plate_val = plate_val[:1]+'D'+plate_val[2:]
+    if len(plate_val) > 0:
+        if plate_val[1] == '0':
+            plate_val = plate_val[:1]+'D'+plate_val[2:]
 
     return plate_val, result

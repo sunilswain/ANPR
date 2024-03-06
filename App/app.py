@@ -19,11 +19,13 @@ def main():
         number_plates = extractNumberPlates(image)
         if number_plates:
             for i, plate in enumerate(number_plates):
-                st.divider()
-                st.header(f"Plate {i+1}")
                 plate_val, _ = recogFunc(plate)
-                st.image(plate)
-                st.write(f"Plate Number: {plate_val}")
+                
+                if len(plate_val) > 0:
+                    st.divider()
+                    st.header(f"Plate {i+1}")
+                    st.image(plate)
+                    st.write(f"Plate Number: {plate_val}")
         else:
             st.write("No number plates detected! Use another image..")
 
