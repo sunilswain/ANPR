@@ -19,7 +19,7 @@ def isExists(plate_val):
 
     if plate_val in plates:
         return df.loc[
-            df['Vehicle_Number']=='OD02CF3697'
+            df['Vehicle_Number']==plate_val
         ][['Emp_Id', 'Owner_Name']].values[0]
 
     return None
@@ -83,7 +83,7 @@ def getPaddle():
 # Function to extract number plate images
 def extractNumberPlates(frame):
     """Returns cropped pictures of number plates if present"""
-    model = YOLO('App/best_1.pt')
+    model = YOLO('App/best_nano.pt')
     result = model.predict(frame)[0]
     numPlates = []
     for object in result.boxes:
