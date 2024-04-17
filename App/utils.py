@@ -6,7 +6,7 @@ import numpy as np
 import re
 import streamlit as st
 
-
+ 
 
 def getPaddle():
     """Returns our CNN OCR Model"""
