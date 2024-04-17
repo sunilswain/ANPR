@@ -6,73 +6,7 @@ import numpy as np
 import re
 import streamlit as st
 
-# def isExists(plate_val):
-#     # Create a connection object.
-#     conn = st.connection("gsheets", type=GSheetsConnection)
 
-#     df = conn.read(
-#         spreadsheet=st.secrets["spreadsheet"],
-#     )
-#     print(df.columns)
-#     plates = list(df['Vehicle_Number'])
-
-#     if plate_val in plates:
-#         return df.loc[
-#             df['Vehicle_Number']==plate_val
-#         ][['Emp_Id', 'Owner_Name']].values[0]
-
-#     return None
-# def removeSpecialCharacters(input_string):
-#     """
-#     This Function accepts a string and removes any special characters present
-#     """
-#     pattern = r'[^a-zA-Z0-9]'
-    
-#     return re.sub(pattern, '', input_string)
-
-# def replaceCharacters(x):
-#     """
-#     This function accepts a string and replaces a the integer character to their respective letter that
-#     closely resembles it. E.g - 4-> A.
-#     This is designed because in indian number plates the state(first 2 character) & the serial number are 
-#     letter. And we are trying to prevent any mis-prediction made by our cnn reader.
-#     """
-#     # Defining a dictionary where the key is the value that we want to fix with its respective value
-#     chars = {'0':'O', '4':'A', '3':'B'}
-#     for i in range(len(x)):
-#         if x[i] in chars.keys():
-#             x[i] = chars[x[i]]
-#     return x
-
-# def fixNumberPlate(input_string):
-#     """
-#     Fixes the number plates  by 
-#     - Removing the the special characters
-#     - Fixing the digits in places of letter
-#     """
-#     input_string = removeSpecialCharacters(input_string)
-
-#     if len(input_string) == 9:
-#         input_string = list(input_string)
-#         # Fixing the state first
-#         state = input_string[:2] # Grabbing the state
-#         input_string[:2] = replaceCharacters(state)
-
-#         # Fixing the serial value
-#         serial = input_string[4:5]
-#         input_string[4:5] = replaceCharacters(serial)
-
-#     elif len(input_string) == 10:
-#         input_string = list(input_string)
-#         # Fixing the state first
-#         state = input_string[:2] # Grabbing the state
-#         input_string[:2] = replaceCharacters(state)
-
-#         # Fixing the serial value
-#         serial = input_string[4:6]
-#         input_string[4:6] = replaceCharacters(serial)
-    
-#     return "".join(input_string)
 
 def getPaddle():
     """Returns our CNN OCR Model"""
